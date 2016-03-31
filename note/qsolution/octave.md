@@ -53,4 +53,6 @@ mac版本为10.10
 	To install one of them, run (for example):  
 	    brew install homebrew/science/octave  
 
-[Octave for MacOS X - Octave](http://wiki.octave.org/Octave_for_MacOS_X)这里有完整的octave安装方法。据它看，上面三个选择应该选择第一个。
+[Octave for MacOS X - Octave](http://wiki.octave.org/Octave_for_MacOS_X)这里有完整的octave安装方法。据它看，上面三个选择应该选择第一个。  
+
+成功开始安装了之后，居然差不多一个半小时才装完，似乎是装了很多插件。最后octave的版本是4.0.0_5.
