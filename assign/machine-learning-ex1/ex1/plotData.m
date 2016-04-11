@@ -16,7 +16,10 @@ function plotData(x, y)
 
 figure; % open a new figure window
 
-
+plot(x, y, 'rx');
+xlabel('population');
+ylabel('profit');
+title('Population-Profit Plot')
 
 
 
