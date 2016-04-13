@@ -68,3 +68,9 @@ mac版本为10.10
 
 在终端下运行`octave'即可。
 
+不能绘图，在[这里](http://www.cnblogs.com/sing1ee/archive/2012/03/18/2765032.html)发现了绘图事项：  
+
+> 如果要绘图，必须安装Extras目录中的gnuplot-4.4.3-aqua-i386.dmg。  
+
+发现后来安装的3.8有了绘图。
+
