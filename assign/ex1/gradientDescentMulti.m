@@ -19,13 +19,15 @@ for iter = 1:num_iters
 
 
 
+for i = 1:size(X,2),
+  dj = 0;
+  for j = 1:m,
+    dj = dj + (X(j,:) * theta -y(i)) * X(j,i);
+  end
+  temp(i) = theta(i) - alpha * dj/m;
+end
 
-
-
-
-
-
-
+theta = temp;
 
     % ============================================================
 
