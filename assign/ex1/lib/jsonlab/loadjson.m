@@ -507,7 +507,7 @@ global isoct
         pos0=[0 pos(:)' length(str)];
         str='';
         for i=1:length(pos)
-            str=[str str0(pos0(i)+1:pos(i)-1) sprintf('_0x%X_’,toascii(str0(pos(i))))];
+            str=[str str0(pos0(i)+1:pos(i)-1) sprintf('_0x%X_',str0(pos(i)))];
         end
         if(pos(end)~=length(str))
             str=[str str0(pos0(end-1)+1:pos0(end))];
