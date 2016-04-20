@@ -21,8 +21,8 @@ dj1 = 0;
 dj2 = 0;
 
 for i = 1:m,
-dj1 = dj1 + (theta' * X(i,:)' -y(i));
-dj2 = dj2 + (theta' * X(i,:)' -y(i)) * X(i,2);
+dj1 = dj1 + (X(i,:)*theta -y(i));
+dj2 = dj2 + (X(i,:)*theta -y(i))*X(i,2);
 end
 
 temp1 = theta(1) - alpha * dj1/m;
