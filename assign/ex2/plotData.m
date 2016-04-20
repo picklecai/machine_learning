@@ -12,11 +12,9 @@ figure; hold on;
 %               examples and 'ko' for the negative examples.
 %
 
-if y==1,
-contour(X(:,1), X(:,2),'rx',y, logspace(0, 100, 10000))
-else if y==0,
-contour(X(:,1), X(:,2),'o',y, logspace(0, 100, 10000))
 
+plot(X(y==0,1),X(y==0,2),'o');
+plot(X(y==1,1),X(y==1,2),'+');
 
 
 
