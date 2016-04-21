@@ -49,6 +49,7 @@ X = [ones(m, 1) X];
 %                 initial_theta, options);
 %
 
+for c = 1:num_labels,
 
 
 
