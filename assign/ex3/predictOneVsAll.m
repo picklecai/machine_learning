@@ -31,7 +31,7 @@ X = [ones(m, 1) X];
 %       
 
 
-[temp,p] = max(X * all_theta', [], 2);
+[temp,p] = max(X * all_theta', [], 2); % p is the index of maximum value.
 
 % =========================================================================
 
