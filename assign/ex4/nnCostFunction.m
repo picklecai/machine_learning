@@ -63,20 +63,49 @@ Theta2_grad = zeros(size(Theta2));
 %
 
 
+htheta = zeros(m,num_labels);
+y_temp = zeros(m,num_labels);
+
+J1_temp = 0 ;
+J2_temp_1 = 0 ;
+J2_temp_2 = 0 ;
+
+htheta = sigmoid(Theta2 * [ones(1,m); sigmoid(Theta1 * [ones(m,1) X]')])';
+
+for i = 1:m
+	for k = 1:num_labels
+		if k == y(i)
+			y_temp(i,k) = 1;
+		    break
+		end
+    end
+end
+
+for i = 1:m 
+	for k = 1:num_labels
+		temp1 = -(y_temp(i,k)*log(htheta(i,k))+(1-y_temp(i,k))*log(1-htheta(i,k)))/m;
+		J1_temp = J1_temp + temp1;
+	end
+end
+
+for j = 1: (hidden_layer_size＋1)
+	for k = 1: (input_layer_size+1)
+		J2_temp_1 = J2_temp_1 + Theta1(j,k)^2;
+	end
+end
+
+for j = 1: (num_labels+1)
+	for k = 1: (hidden_layer_size+1)
+		J2_temp_2 = J2_temp_2 + Theta2(j,k)^2;
+	end
+end
+
+J2_temp = (J2_temp_1 + J2_temp_2) * lambda / (2*m);
+
+J = J1_temp + J2_temp;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+% grad = (X' * (sigmoid(X * theta) .-y).+temp.*lambda)./m;
 
 
 
