@@ -39,10 +39,24 @@ error_val = zeros(length(lambda_vec), 1);
 %
 %
 
+% p = 8;
+
+% X_poly = polyFeatures(X, p);
+% Xval_poly = polyFeatures(Xval, p);
+
+for i = 1:length(lambda_vec)
+	lambda = lambda_vec(i);
+    % [error_train(i), error_val(i)] = learningCurve(X_poly, y, Xval_poly, yval, lambda);
+    % [error_train, error_val] = learningCurve(X, y, Xval, yval, lambda);
+
+    theta = trainLinearReg(X, y, lambda);
+    [error_train(i), grad_train] = linearRegCostFunction(X, y, theta, 0);
+    [error_val(i), grad_val] = linearRegCostFunction(Xval,yval, theta, 0);
 
 
 
-
+    % [error_train, error_val] = learningCurve(X_poly, y, Xval_poly, yval, lambda);
+end
 
 
 
