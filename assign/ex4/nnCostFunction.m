@@ -72,6 +72,7 @@ J2_temp_2 = 0 ;
 
 htheta = sigmoid(Theta2 * [ones(1,m); sigmoid(Theta1 * [ones(m,1) X]')])';
 
+% vector y
 for i = 1:m
 	for k = 1:num_labels
 		if k == y(i)
@@ -81,6 +82,7 @@ for i = 1:m
     end
 end
 
+% part 1:
 for i = 1:m 
 	for k = 1:num_labels
 		temp1 = -(y_temp(i,k)*log(htheta(i,k))+(1-y_temp(i,k))*log(1-htheta(i,k)))/m;
@@ -88,14 +90,15 @@ for i = 1:m
 	end
 end
 
-for j = 1: (hidden_layer_size＋1)
-	for k = 1: (input_layer_size+1)
+%part 3:
+for j = 1: (hidden_layer_size)
+	for k = 2: (input_layer_size+1)
 		J2_temp_1 = J2_temp_1 + Theta1(j,k)^2;
 	end
 end
 
-for j = 1: (num_labels+1)
-	for k = 1: (hidden_layer_size+1)
+for j = 1: (num_labels)
+	for k = 2: (hidden_layer_size+1)
 		J2_temp_2 = J2_temp_2 + Theta2(j,k)^2;
 	end
 end
@@ -104,9 +107,35 @@ J2_temp = (J2_temp_1 + J2_temp_2) * lambda / (2*m);
 
 J = J1_temp + J2_temp;
 
+% part 2:
 
-% grad = (X' * (sigmoid(X * theta) .-y).+temp.*lambda)./m;
+Theta10 = Theta1(:, 2:end);
+Theta20 = Theta2(:, 2:end);
+Delta_l2 = 0; 
+Delta_l1 = 0;
 
+for i = 1:m
+
+	% compute a
+	a1 = [1;X(i,:)'];
+	a2 = [1;sigmoid(Theta1 * a1)];
+	a3 = sigmoid(Theta2 * a2);
+
+	% compute delta_l
+	delta_l3 = a3 - y_temp(i,:)';
+	delta_l2 =  Theta20' * delta_l3 .* sigmoidGradient(Theta1 * a1);
+
+	% compute Delta
+	Delta_l2 += delta_l3 * a2';
+	Delta_l1 += delta_l2 * a1';
+
+end
+
+Theta1_grad = Delta_l1 ./ m;
+Theta2_grad = Delta_l2 ./ m;
+
+Theta1_grad(:, 2:end) += Theta10 .* (lambda / m);
+Theta2_grad(:, 2:end) += Theta20 * lambda / m;
 
 
 % -------------------------------------------------------------
