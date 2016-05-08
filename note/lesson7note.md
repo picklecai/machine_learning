@@ -56,7 +56,7 @@ theta的范就是1/p = 1/2
 
 ![](http://7xotr7.com1.z0.glb.clouddn.com/16-5-6/17808461.jpg)  
 
-当delta变化时，等高线的变化。
+当sigma变化时，等高线的变化。
 
 ![](http://7xotr7.com1.z0.glb.clouddn.com/16-5-6/91277077.jpg)  
 theta值已知时，计算预测值。
@@ -80,12 +80,12 @@ theta值已知时，计算预测值。
 ### 6. Using An SVM  
 21 分  
 
-关于delta的大小选择：  
+关于sigma的大小选择：  
 
 > 如果 σ 的平方很大 那么你就有可能 得到一个较大的误差 较低方差的分类器 但是如果 σ 的平方很小 那么你就会有较大的方差 较低误差的分类器 
 
-- delta大，bias大，方差小；  
-- delta小，bias小，方差大；  
+- sigma大，bias大，方差小；  
+- sigma小，bias小，方差大；  
 
 终于在这里找到这个知识点了……  
 
@@ -93,7 +93,7 @@ theta值已知时，计算预测值。
 
 ![](http://7xotr7.com1.z0.glb.clouddn.com/16-5-6/69524847.jpg) 
 
-应该选C变大，delta变小。  
+应该选C变大，sigma变小。  
 
 ![](http://7xotr7.com1.z0.glb.clouddn.com/16-5-6/44297293.jpg)  
 
@@ -118,3 +118,4 @@ theta值已知时，计算预测值。
 ![](http://7xotr7.com1.z0.glb.clouddn.com/16-5-6/45127551.jpg)    
 
 主要错误点在最后一项。我把它理解成局部最低点问题了。
+
