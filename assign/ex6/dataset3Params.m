@@ -25,12 +25,12 @@ sigma = 0.3;
 
 C = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30];
 sigma = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30];
-predictions = zeros(yval);
+predictions = zeros(length(yval));
 pre_err = 0;
 
 for i = 1:length(C)
 	for j = 1:length(sigma)
-		model = svmTrain(X, y, C, @(x1, x2) gaussianKernel(x1, x2, sigma));
+		model = svmTrain(X, y, C(i), @(x1, x2) gaussianKernel(x1, x2, sigma(j)));
 		predictions = svmPredict(model, Xval);
 		pre_err(i,j) = mean(double(predictions ~= yval));
 	end
