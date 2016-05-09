@@ -25,9 +25,11 @@ sigma = 0.3;
 
 C = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30];
 sigma = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30];
+
 predictions = zeros(length(yval));
 pre_err = 0;
 
+% get the min error
 for i = 1:length(C)
 	for j = 1:length(sigma)
 		model = svmTrain(X, y, C(i), @(x1, x2) gaussianKernel(x1, x2, sigma(j)));
@@ -36,8 +38,12 @@ for i = 1:length(C)
 	end
 end
 
-[x,ix] = min(pre_err);
+% get the index of min error
+[x1,ix1] = min(pre_err);
+[x2,ix2] = min(x1);
+ix = [ix1(ix2),ix2];
 
+% from the index get the optimal C and sigma
 C = C(ix(1));
 sigma = sigma(ix(2));
 
