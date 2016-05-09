@@ -73,7 +73,12 @@
 
 ![](http://7xotr7.com1.z0.glb.clouddn.com/16-5-9/54093315.jpg)  
 
-因为最近，所以代价最低。
+因为最近，所以代价最低。 
+
+练习：  
+![](http://7xotr7.com1.z0.glb.clouddn.com/16-5-9/30353624.jpg)  
+
+这道题有点模糊。为什么会这样呢？
 
 #### 1.1.4 Random Initialization  
 8 分
