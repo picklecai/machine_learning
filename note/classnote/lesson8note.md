@@ -83,37 +83,144 @@
 #### 1.1.4 Random Initialization  
 8 分
 
+主要问题：如何初始化  
+
+> 通常用来初始化K均值聚类的方法是：随机挑选K个训练样本，然后设定μ1到μk让它们等于这个K个样本。  
+
+这种方法带来的问题： 
+
+> K均值方法最终可能会得到不同的结果， 尤其是如果K均值方法落在局部最优的时候。它取决于聚类簇的初始化方法，因此也就取决于随机的初始化。 
+
+解决办法：  
+
+> 如果你担心K均值方法会遇到局部最优的问题，如果 你想提高K均值方法找到最有可能的聚类的几率的话，我们能做的是尝试**多次随机**的初始化，初始化K均值很多次，并运行K均值方法很多次，通过多次尝试来保证我们最终能得到一个足够好的结果，一个尽可能局部或全局最优的结果。  
+ 
+适用情况：  
+
+> **聚类数相对较小**的体系里，特别是如果你有2个或者3个或者4个聚类的话，随机初始化会有较大的影响，可以保证你在最小化失真函数的时候得到一个很小的值 并且能得到一个很好的聚类结果。  
 
 #### 1.1.5 Choosing the Number of Clusters  
 8 分
 
+主要问题：如何去选择参数大写K的值？  
+
+问题的难点在于“数据集中有多少个聚类通常是模棱两可的”。
+
+> 1. 最为常见的方法，实际上仍是**手动选择**聚类的数目。  
+
+> 2. 肘部法则 (Elbow Method)：改变K（类别总数）的值，用K值为1逐步增加，来运行K-均值聚类算法，然后计算代价函数，画出来的曲线展示了随着聚类数量的增多，畸变值J是逐步下降的。 
+> ![](http://7xotr7.com1.z0.glb.clouddn.com/16-5-10/20608655.jpg)  
+> 选择下降开始缓慢的“肘部”点（像人的肘部而得名）为聚类数目。  
+> 
+> 3. 通常来说，决定聚类数量的更好的办法是：看不同的聚类数量能为后续下游的目的提供多好的结果。
 
 ## 2. Dimensionality Reduction
+
+第二种无监督学习问题 它叫维数约减 (dimensionality reduction)   
 
 ### 2.1 Motivation
 
 #### 2.1.1 Motivation I: Data Compression  
-10 分
+10 分  
 
+降维的好处：数据压缩
+
+dimensionality reduction可以进行数据压缩，数据压缩的好处：  
+- 数据占据更小的计算机内存和空间；  
+- 算法运行**更快**。（这一点更重要）
+
+把原始样本进行适当的映射，降低维度，减少数据冗余。
 
 #### 2.1.2 Motivation II: Visualization  
 5 分
 
+降维的好处：数据可视化更方便
+
+降维后再数据可视化  
+
+降维前：  
+![](http://7xotr7.com1.z0.glb.clouddn.com/16-5-10/2998027.jpg)  
+
+降维后：  
+![](http://7xotr7.com1.z0.glb.clouddn.com/16-5-10/46100230.jpg)  
+
+降维后可视化结果：  
+![](http://7xotr7.com1.z0.glb.clouddn.com/16-5-10/92723170.jpg)
 
 ### 2.2 Principal Component Analysis
+
+这就是“主成分分析”。 
+
+> 对于降维问题来说 目前 最流行 最常用的算法是 主成分分析法 (Principal Componet Analysis, PCA）。 
 
 #### 2.2.1 Principal Component Analysis Problem Formulation  
 9 分
 
+在低维上找到一个（或一组）向量，将原来的数据点投影上去，能令投影误差最小。这就实现了降维。
+
+![](http://7xotr7.com1.z0.glb.clouddn.com/16-5-10/96573151.jpg)
+
+PCA和线性回归的区别：  
+
+![](http://7xotr7.com1.z0.glb.clouddn.com/16-5-10/79688793.jpg)  
+
+注意蓝色线条的方向！！！  
+
+> 理解PCA 是做什么的:它是寻找到一个低维的平面，对数据进行投影，以便最小化投影误差的平方，最小化每个点，与投影后的对应点之间的距离的平方值。
 
 #### 2.2.2 Principal Component Analysis Algorithm  
 15 分
+
+主要问题：PCA的算法  
+
+> 数据预处理：拿到某组有m个无标签样本的训练集，一般先进行均值归一化 (mean normalization) 。或者feature scaling，这根据你的数据而定。   
+ 
+> ![](http://7xotr7.com1.z0.glb.clouddn.com/16-5-10/42012258.jpg)
+> 
+> 归一化即与平均值的差，再除以适当的单位则是feature scaling。 
+ 
+要把数据从n维降低到k维： 
+
+> 首先，计算出这个协方差矩阵（通常是用希腊字母大写的西格玛∑来表示）  
+> ![](http://7xotr7.com1.z0.glb.clouddn.com/16-5-10/6120725.jpg)  
+> 计算出这个协方差矩阵后，假如我们把它存为 Octave中的变量Sigma，我们需要计算出Sigma矩阵的特征向量(eigenvectors)：   
+> ![](http://7xotr7.com1.z0.glb.clouddn.com/16-5-10/34119143.jpg)  
+> （ `svd`表示奇异值分解 (singular value decomposition)  ）  
+> （Sigma是一个协方差矩阵，有很多种方法来计算它的特征向量。在Octave中，还有另一个`eig`命令可以用来计算特征向量。两个函数不同，计算协方差矩阵的特征向量时结果相同。因为协方差均值总满足一个数学性质，称为对称正定 (symmetric positive definite)。）  
+> （这个协方差矩阵Sigma应该是一个n×n的矩阵。）  
+> ![](http://7xotr7.com1.z0.glb.clouddn.com/16-5-10/242604.jpg)  
+> 如果我们想将数据的维度从n降低到k的话，我们只需要提取前 k 列向量，得到了 u(1) 到 u(k) 也就是我们用来投影数据的k个方向。  
+> 通过这个svd，我们得到了矩阵U我们把它的列向量叫做u(1)到 u(n)。  
+> ![](http://7xotr7.com1.z0.glb.clouddn.com/16-5-10/55548078.jpg)  
+> 通过这个svd 过程，我们可以得到矩阵U S V。我们取出U矩阵的前k列，得到一个新的矩阵u(1)到u(k)。因此这就是一个 n × k 维的矩阵 n × k 维的矩阵 我给这个矩阵起个名字 我把这个矩阵 叫做 Ureduce 表示 U 矩阵约减后的版本。   
+> ![](http://7xotr7.com1.z0.glb.clouddn.com/16-5-10/8184359.jpg)
+> 然后 计算 z 的方法是：z 等于这个 Ureduce的转置（它的维度是k×n）乘以x，x 的维度是 n × 1，因此这两个相乘 维度应该是 k × 1 因此 z 是 k 维的 向量。  
+> ![](http://7xotr7.com1.z0.glb.clouddn.com/16-5-10/479508.jpg)  
+
+总结：  
+> ![](http://7xotr7.com1.z0.glb.clouddn.com/16-5-10/80002999.jpg)   
+
+注意：  
+- 如果不同特征量的范围跨度很大的话，需要进行特征缩放这一步。  
+- 使用PCA时，x应该是n维实数，所以没有x0 = 1这一项。
+
+这个题目是个陷阱：  
+![](http://7xotr7.com1.z0.glb.clouddn.com/16-5-10/48882663.jpg)  
+
+z的第j个值，实际上是个实数。起初选择了A，那是标准公式下的向量。  
 
 ### 2.3 Applying PCA
 
 #### 2.3.1 Reconstruction from Compressed Representation  
 4 分
 
+主要问题：从压缩过的数据近似地回到原始高维度的数据。  
+
+> ![](http://7xotr7.com1.z0.glb.clouddn.com/16-5-10/38233301.jpg)  
+
+题目有意思，目的是啥呢？  
+
+> 
 
 #### 2.3.2 Choosing the Number of Principal Components  
 11 分
