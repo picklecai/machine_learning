@@ -21,11 +21,19 @@ idx = zeros(size(X,1), 1);
 % Note: You can use a for-loop over the examples to compute this.
 %
 
+d = zeros(size(X,1),size(centroids,1));
 
+for i = 1:size(X,1)
+	for j = 1:K
+		% d(i,j) = (X(i,1)-centroids(j,1))^2 + (X(i,2)-centroids(j,2))^2 % This can't face to higher dimension
+		d(i,j) = sum((X(i,:)-centroids(j,:)).^2);
+	end
+end
 
+%d = pdist2(X, centroids); % This should need to import stats modules
 
-
-
+[dd, ix] = min(d,[],2);
+idx = ix(:);
 
 % =============================================================
 
