@@ -36,8 +36,10 @@ for j = 1:K
 			cnum(j) = cnum(j) + 1;
 		end
 	end	
-	centroids(j,:) = temp(j,:) ./ cnum(j); % not temp(j,:) = ...
+	temp(j,:) = temp(j,:) ./ cnum(j); % not temp(j,:) = ...
 end
+
+centroids = temp(:,:);
 
 % =============================================================
 
